@@ -6,6 +6,7 @@ use Luna\Services\Core\Route as Route;
 use Luna\Services\HTTP\Request as Request;
 use Luna\Services\HTTP\Response as Response;
 use Luna\Services\Routing\RouteHandler as Router;
+use Luna\Services\Core\ResourceHandler as Resource;
 
 class Luna
 {
@@ -13,6 +14,7 @@ class Luna
 	public function __construct()
 	{
 		$this->router = new Router;
+		$this->resource = new Resource;
 		$this->response = new Response;
 		$this->request = new Request($_SERVER);
 	}
@@ -55,7 +57,7 @@ class Luna
 			$this->response->code(404);
 			$this->response->body(function()
 			{
-				echo "Page not found.";
+				$this->resource->load('views/errors/404');
 			});
 			$this->response->send();
 		}
