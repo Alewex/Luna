@@ -24,7 +24,7 @@ class Luna
 
 	public function post($route, $response)
 	{
-		return $this->router->addToCollection(new Route('POST', $route, $response));
+		return $this->processRoute('POST', $route, $response);
 	}
 
 	public function processRoute($method, $route, $response)
