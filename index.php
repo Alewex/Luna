@@ -5,7 +5,7 @@ $luna = require 'bootstrap.php';
 $app = $luna['Core'];
 $response = $luna['Response'];
 
-$app->get('/', function()
+$app->get(['/', '/home'], function()
 {
 	echo "Welcome!";
 });

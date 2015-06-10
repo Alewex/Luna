@@ -19,12 +19,26 @@ class Luna
 
 	public function get($route, $response)
 	{
-		return $this->router->addToCollection(new Route('GET', $route, $response));
+		return $this->processRoute('GET', $route, $response);
 	}
 
 	public function post($route, $response)
 	{
 		return $this->router->addToCollection(new Route('POST', $route, $response));
+	}
+
+	public function processRoute($method, $route, $response)
+	{
+		if (is_array($route))
+		{
+			foreach ($route as $route)
+			{
+				$this->router->addToCollection(new Route($method, $route, $response));
+			}
+		} else
+		{
+			$this->router->addToCollection(new Route($method, $route, $response));
+		}
 	}
 
 	public function dispatch()
