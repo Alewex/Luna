@@ -12,7 +12,7 @@ class Request
 	public $method;
 	public $requestQuery;
 
-	public function __construct(array $request)
+	public function create(array $request)
 	{
 		$this->host = $request['HTTP_HOST'];
 		$this->uri = $request['REQUEST_URI'];
