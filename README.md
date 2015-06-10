@@ -30,3 +30,13 @@ $app->post(['/', '/home'], function(
   echo "Welcome! You can see this with either '/' or '/home'";
 });
 ```
+
+#### Adding a service
+On the bootstrap file you can add services, these services must be under the vendor directory.
+```php
+$services = [
+  'MyService' => new Test\Service;
+];
+
+$myService = $services['MyService'];
+```
