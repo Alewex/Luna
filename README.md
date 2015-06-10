@@ -1,5 +1,8 @@
 # Luna
 #### A small and super simple PHP framework
+I know there are tons of frameworks (specially micro) out there that have better functionality and are way faster, this one is not intended to be innovative or any different from the others, this one is just the product of my free time and curiosity to see if I could craft a basic yet functional framework with my achieved skills so far.
+
+Feedback is more than appreciated.
 ---
 ### Todo
 - Create the ViewHandler and ControllerHandler.
