@@ -6,6 +6,7 @@ class Request
 {
 
 	public $uri;
+	public $url;
 	public $host;
 	public $time;
 	public $method;
@@ -17,6 +18,7 @@ class Request
 		$this->uri = $request['REQUEST_URI'];
 		$this->time = $request['REQUEST_TIME'];
 		$this->method = $request['REQUEST_METHOD'];
+		$this->url = $this->host . $request['REQUEST_URI'];
 		$this->requestQuery = (!empty($request['QUERY_STRING']) ? str_replace('request=', '/', $request['QUERY_STRING']) : '/');
 	}
 
