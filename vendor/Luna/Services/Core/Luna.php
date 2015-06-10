@@ -16,7 +16,7 @@ class Luna
 		$this->router = new Router;
 		$this->resource = new Resource;
 		$this->response = new Response;
-		$this->request = new Request($_SERVER);
+		$this->request = new Request;
 	}
 
 	public function get($route, $response)
@@ -45,6 +45,8 @@ class Luna
 
 	public function dispatch()
 	{
+		$this->request->create($_SERVER);
+		
 		$match = $this->routeMatchedByRequest();
 
 		if (!empty($match))
@@ -57,7 +59,7 @@ class Luna
 			$this->response->code(404);
 			$this->response->body(function()
 			{
-				$this->resource->load('views/errors/404');
+				$this->resource->load('views/errors/404.html');
 			});
 			$this->response->send();
 		}
