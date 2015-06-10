@@ -1,0 +1,10 @@
+<?php $request = new Luna\Services\HTTP\Request($_SERVER) ?>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>404 | Page not found</title>
+</head>
+<body>
+	<pre>We're sorry but the page (<b><?php echo $request->url ?></b>) you request was not found.</pre>
+</body>
+</html>
