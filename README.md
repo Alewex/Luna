@@ -31,6 +31,12 @@ $app->post(['/', '/home'], function(
 });
 ```
 
+#### Custom error pages
+By default, the 404 error page is located under vendor/Luna/Resources/Views/Erorrs, but if you have your own error pages you can drop them in the resources directory. You only have to add the following line in your index file.
+```php
+$resources->path('path/to/resources/);
+```
+
 #### Adding a service
 On the bootstrap file you can add services, these services must be under the vendor directory.
 ```php
