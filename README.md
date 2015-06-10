@@ -22,3 +22,11 @@ $app->post('/create', function(
   echo "Hey there! This is a POST route.";
 });
 ```
+
+```php
+// Multi-route.
+$app->post(['/', '/home'], function(
+{
+  echo "Welcome! You can see this with either '/' or '/home'";
+});
+```
