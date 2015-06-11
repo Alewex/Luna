@@ -17,10 +17,9 @@ class ResourceHandler
 	{
 		$this->resource = $resource;
 
-		$path = glob(self::$path . $resource);
 		$path = self::$path . $resource;
 
-		if ($path) require_once $path;
+		if (file_exists($path)) require_once $path;
 	}
 
 	public function getResourcePath($resource)
@@ -30,12 +29,14 @@ class ResourceHandler
 
 	public function style($resource)
 	{
-		return "<link rel='stylesheet' href='" . $this->getResourcePath('css/' . $resource . '.css')[0] . "'>";
+		$path = $this->getResourcePath('css/' . $resource . '.css')[0];
+		return "<link rel='stylesheet' href='" . $path . "'>";
 	}
 
 	public function script($resource)
 	{
-		return "<script src='" . $this->getResourcePath('js/' . $resource . '.js') . "'>";
+		$path = $this->getResourcePath('js/' . $resource . '.js')[0];
+		return "<script src='" . $path . "'>";
 	}
 
 }
