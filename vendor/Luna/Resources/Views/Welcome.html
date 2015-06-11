@@ -1,0 +1,17 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title><?php echo $this->title ?></title>
+	<?php echo $this->resource->style('app') ?>
+</head>
+<body>
+	<?php $luna = $this->data ?>
+	<div class="main-fm">
+		<div class="welcome-box">
+			<h1>Hey there!</h1>
+			<h2 class="light">Welcome to <b><?php echo $luna['framework'] ?></b> version <b><?php echo $luna['version'] ?></b></h2>
+			<p>If you want you can delete everything inside <code>vendor/Luna/Resources/</code> and set your own Resources folder in the <code>index.php</code> file with <code>$resource->path('path/to/resource/')</code></p>
+		</div>
+	</div>
+</body>
+</html>
