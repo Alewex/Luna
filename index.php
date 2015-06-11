@@ -4,9 +4,9 @@ $luna = require 'bootstrap.php';
 
 // $resource->path('resources/');
 
-$app->get(['/', '/home'], function()
+$app->get(['/', '/home'], function() use ($controller)
 {
-	echo "Welcome!";
+	$controller->load('WelcomeController');
 });
 
 $app->dispatch();
