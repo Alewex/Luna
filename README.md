@@ -5,7 +5,7 @@ I know there are tons of frameworks (specially micro) out there that have better
 Feedback is more than appreciated.
 
 ### Todo
-- Create the ViewHandler and ControllerHandler.
+~~- Create the ViewHandler and ControllerHandler.~~
 - That's all, I want to keep it simple.
 
 ### Usage
