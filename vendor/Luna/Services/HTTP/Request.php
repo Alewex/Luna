@@ -19,7 +19,7 @@ class Request
 		$this->time = $request['REQUEST_TIME'];
 		$this->method = $request['REQUEST_METHOD'];
 		$this->url = $this->host . $request['REQUEST_URI'];
-		$this->requestQuery = (!empty($request['QUERY_STRING']) ? str_replace('request=', '/', $request['QUERY_STRING']) : '/');
+		$this->requestQuery = (!empty($request['QUERY_STRING']) ? rtrim(str_replace('request=', '/', $request['QUERY_STRING']), '/') : '/');
 	}
 
 	public function method()
