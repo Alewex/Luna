@@ -17,6 +17,7 @@ h2.light {
 	right: 0;
 }
 .welcome-box {
+	overflow: hidden;
 	min-width: 250px;
 	max-width: 500px;
 	margin: 0 auto;

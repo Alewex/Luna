@@ -30,13 +30,13 @@ class ResourceHandler
 	public function style($resource)
 	{
 		$path = $this->getResourcePath('css/' . $resource . '.css')[0];
-		return "<link rel='stylesheet' href='" . $path . "'>";
+		return "<link rel='stylesheet' href='/" . $path . "'>";
 	}
 
 	public function script($resource)
 	{
 		$path = $this->getResourcePath('js/' . $resource . '.js')[0];
-		return "<script src='" . $path . "'>";
+		return "<script src='/" . $path . "'>";
 	}
 
 }
