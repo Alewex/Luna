@@ -2,18 +2,18 @@
 
 require 'config/autoloader.php';
 
-$services = [
-	'Core' => new Luna\Services\Core\Luna(),
-	'Response' => new Luna\Services\HTTP\Response(),
-	'View' => new Luna\Services\HTTP\Views\ViewHandler(),
-	'Resource' => new Luna\Services\Core\ResourceHandler(),
-	'Controller' => new Luna\Services\HTTP\Controllers\ControllerHandler()
-];
+$service = new Luna\Services\Core\ServiceContainer();
 
-$app = $services['Core'];
-$view = $services['View'];
-$response = $services['Response'];
-$resource = $services['Resource'];
-$controller = $services['Controller'];
+$service->register('Core', new Luna\Services\Core\Luna());
+$service->register('Response', new Luna\Services\HTTP\Response());
+$service->register('View', new Luna\Services\HTTP\Views\ViewHandler());
+$service->register('Resource', new Luna\Services\Core\ResourceHandler());
+$service->register('Controller', new Luna\Services\HTTP\Controllers\ControllerHandler());
+$service->register('Fluent', new FluentPDO\FluentPDO(new PDO("mysql:dbname=luna", "root")));
 
-return $services;
+$app = $service->load('Core');
+$view = $service->load('View');
+$fluent = $service->load('Fluent');
+$response = $service->load('Response');
+$resource = $service->load('Resource');
+$controller = $service->load('Controller');
