@@ -11,7 +11,7 @@ class View
 	public $data;
 	public $title;
 
-	public function __construct($view, $title, array $data)
+	public function __construct($view, $title, $data)
 	{
 		$this->view = $view;
 		$this->data = $data;
@@ -25,9 +25,9 @@ class View
 	{
 		$path = $this->resource->getResourcePath('views/' . $this->view . '*');
 
-		if ($this->viewExists($path[0]))
+		if ($this->viewExists($path))
 		{
-			require_once $path[0];
+			require_once $path;
 
 			return $this;
 		}

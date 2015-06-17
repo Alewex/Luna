@@ -23,9 +23,9 @@ class Controller
 	{
 		$path = $this->resource->getResourcePath('controllers/' . $this->class . '.php');
 
-		if ($this->controllerExists($path[0]))
+		if ($this->controllerExists($path))
 		{
-			require_once $path[0];
+			require_once $path;
 
 			$controller = new $this->class;
 
