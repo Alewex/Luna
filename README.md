@@ -40,6 +40,20 @@ By default, the 404 error page is located under vendor/Luna/Resources/Views/Eror
 $resources->path('path/to/resources/');
 ```
 
+### Creating a controller
+All controllers must extend the BaseController class found at vendor/Luna/Services/HTTP/Controllers and must have a "main" function.
+```php
+use Luna\Services\HTTP\Controllers\BaseController;
+
+class MyController extends BaseController
+{
+  public function main()
+  {
+    echo "Welcome!";
+  }
+}
+```
+
 #### Adding a service
 On the bootstrap file you can add services, these services must be under the vendor directory.
 ```php
