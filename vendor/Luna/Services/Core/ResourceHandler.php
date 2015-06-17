@@ -24,18 +24,18 @@ class ResourceHandler
 
 	public function getResourcePath($resource)
 	{
-		return glob(self::$path . $resource);
+		return glob(self::$path . $resource)[0];
 	}
 
 	public function style($resource)
 	{
-		$path = $this->getResourcePath('css/' . $resource . '.css')[0];
+		$path = $this->getResourcePath('css/' . $resource . '.css');
 		return "<link rel='stylesheet' href='/" . $path . "'>";
 	}
 
 	public function script($resource)
 	{
-		$path = $this->getResourcePath('js/' . $resource . '.js')[0];
+		$path = $this->getResourcePath('js/' . $resource . '.js');
 		return "<script src='/" . $path . "'>";
 	}
 
