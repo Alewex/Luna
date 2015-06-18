@@ -2,11 +2,12 @@
 
 namespace Luna\Core;
 
-use Luna\Core\Route as Route;
+use Luna\Routing\Route as Route;
 use Luna\HTTP\Request as Request;
 use Luna\HTTP\Response as Response;
 use Luna\Routing\RouteHandler as Router;
 use Luna\Core\ResourceHandler as Resource;
+use Luna\Core\ServiceContainer;
 
 class Luna
 {
@@ -14,9 +15,9 @@ class Luna
 	public function __construct()
 	{
 		$this->router = new Router;
+		$this->request = new Request;
 		$this->resource = new Resource;
 		$this->response = new Response;
-		$this->request = new Request;
 	}
 
 	public function get($route, $response)
@@ -31,6 +32,11 @@ class Luna
 
 	public function processRoute($method, $route, $response)
 	{
+		if (!is_callable($response) && is_array($response))
+		{
+			$response = $this->processResponse($response);
+		}
+
 		if (is_array($route))
 		{
 			foreach ($route as $route)
@@ -40,6 +46,29 @@ class Luna
 		} else
 		{
 			$this->router->addToCollection(new Route($method, $route, $response));
+		}
+	}
+
+	public function processResponse(array $response)
+	{
+		$type = array_keys($response)[0];
+		$action = array_values($response)[0];
+
+		switch ($type)
+		{
+			case 'controller':
+				return function() use ($action) { ServiceContainer::$services['Controller']->load($action); };
+			break;
+
+			case 'view':
+				if (is_array($action))
+				{
+					return function() use ($action) { ServiceContainer::$services['View']->render($action['view'], (isset($action['title']) ? $action['title'] : null), (isset($action['data']) ? $action['data'] : null)); };
+				} else
+				{
+					return function() use ($action) { ServiceContainer::$services['View']->render($action); };
+				}
+			break;
 		}
 	}
 
