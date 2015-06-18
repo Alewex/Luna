@@ -35,7 +35,7 @@ $app->post(['/', '/home'], function(
 ```
 
 #### Custom error pages
-By default, the 404 error page is located under vendor/Luna/Resources/Views/Errors, but if you have your own error pages you can drop them in the resources directory. You only have to add the following line in your index file.
+By default, the 404 error page is located under resources/views/errors, but if you have your own error pages you can drop them in any directory in the root. You only have to add the following line in your index file.
 ```php
 $resources->path('path/to/resources/');
 ```
