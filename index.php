@@ -4,7 +4,10 @@ $luna = require 'bootstrap.php';
 
 // $resource->path('path/to/resources/');
 
-$app->get(['/', '/home'], ['view' => ['view' => 'Welcome', 'title' => 'Luna', 'data' => ['framework' => 'Luna', 'version' => 1.8]]]);
+$app->get(['/', '/home'], function() use($app, $view)
+{
+	$view->render('Welcome', 'Luna', ['framework' => 'Luna', 'version' => 1.8, 'routes' => $app->router->collection->routes]);
+});
 
 $app->get('/users', ['controller' => 'UsersController']);
 
