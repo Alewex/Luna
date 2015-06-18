@@ -9,13 +9,26 @@ class Response
 	public $code;
 	public $headers;
 
-	public function __construct()
+	public function setHeader($header, $value)
 	{
+		return $this->headers[$header] = $value;
 	}
 
-	public function header($headers = false)
+	public function sendHeaders($headers = false)
 	{
-		$this->headers = $headers;
+		if ($headers)
+		{
+			foreach ($headers as $header => $value)
+			{
+				return header("$header: $value");
+			}
+		} else
+		{
+			foreach ($this->headers as $header => $value)
+			{
+				return header("$header: $value");
+			}
+		}
 	}
 
 	public function code($code)
@@ -43,6 +56,13 @@ class Response
 	public function bodyIsCallable()
 	{
 		return (is_callable($this->body) ? true : false);
+	}
+
+	public function redirect($url)
+	{
+		$this->code(302);
+		$this->setHeader('Location', $url);
+		$this->sendHeaders();
 	}
 
 }
