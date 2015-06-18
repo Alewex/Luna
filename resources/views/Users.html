@@ -1,0 +1,28 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title><?php echo $this->title ?></title>
+	<?php echo $this->resource->style('app') ?>
+</head>
+<body>
+	<?php $users = $this->data['users'] ?>
+	<div class="main-fm">
+		<div class="welcome-box">
+			<table>
+				<tr>
+					<th>Name</th>
+					<th>Age</th>
+					<th>Location</th>
+				</tr>
+				<?php foreach ($users as $user): ?>
+					<tr>
+						<td><?php echo "$user[name]" ?></td>
+						<td><?php echo "$user[age]" ?></td>
+						<td><?php echo "$user[location]" ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+@import url('normalize.css');
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+body {
+	font-family: 'Roboto', sans-serif;
+}
+h2.light {
+	font-weight: normal;
+}
+.not-found {
+	margin: 10px;
+}
+.main-fm {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.welcome-box {
+	overflow: hidden;
+	min-width: 250px;
+	max-width: 500px;
+	margin: 0 auto;
+	margin-top: 100px;
+	text-align: center;
+	color: #555555;
+}
+code {
+	color: crimson;
+	background: #eeeeee;
+	padding: 3px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+.welcome-box > table {
+	margin: 0 auto;
+	background: #f1f1f1;
+}
+th {
+	padding: 10px 20px;
+	background: #e1e1e1;
+}
+td {
+	padding: 10px 20px;
+}
