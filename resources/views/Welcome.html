@@ -8,10 +8,17 @@
 </head>
 <body>
     <?php $luna = $this->data ?>
+    <?php $routes = $luna['routes'] ?>
     <div class="main-fm">
         <div class="welcome-box">
             <h1>Hey there!</h1>
             <h2 class="light">Welcome to <b><?php echo $luna['framework'] ?></b> version <b><?php echo $luna['version'] ?></b></h2>
+            <hr>
+            <div class="routes">
+                <?php foreach ($routes as $route): ?>
+                    <a href="<?php echo rtrim($_SERVER['SCRIPT_NAME'], 'index.php/') . $route->route ?>"><div class="route"><span class="route-method"><?php echo $route->method ?></span><?php echo $route->route ?></div></a>
+                <?php endforeach; ?>
+            </div>
             <hr>
             <h2>Getting started</h2>
             <h3 class="light title">Adding a route</h3>
