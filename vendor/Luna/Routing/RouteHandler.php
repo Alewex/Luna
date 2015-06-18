@@ -2,7 +2,7 @@
 
 namespace Luna\Routing;
 
-use Luna\Core\Route as Route;
+use Luna\Routing\Route as Route;
 use Luna\Routing\RouteCollection as Collection;
 
 class RouteHandler
