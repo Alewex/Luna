@@ -7,9 +7,16 @@ use Luna\HTTP\Controllers\Controller;
 class ControllerHandler
 {
 
-	public function load($class, $method = false)
+	public function load($class)
 	{
-		return new Controller($class, $method);
+		if (strpos($class, '/'))
+		{
+			$class = explode('/', $class);
+			return new Controller($class[0], $class[1]);
+		} else
+		{
+			return new Controller($class, 'main');
+		}
 	}
 
 }
