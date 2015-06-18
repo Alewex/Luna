@@ -11,7 +11,7 @@ class View
 	public $data;
 	public $title;
 
-	public function __construct($view, $title, $data)
+	public function __construct($view, $title = false, $data = false)
 	{
 		$this->view = $view;
 		$this->data = $data;
