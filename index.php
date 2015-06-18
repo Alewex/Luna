@@ -2,14 +2,15 @@
 
 $luna = require 'bootstrap.php';
 
-$app->get(['/', '/home'], function() use ($controller)
-{
-	$controller->load('WelcomeController');
-});
+// $resource->path('path/to/resources/');
 
-$app->get('/users', function() use($controller)
+$app->get(['/', '/home'], ['view' => ['view' => 'Welcome', 'title' => 'Luna', 'data' => ['framework' => 'Luna', 'version' => 1.8]]]);
+
+$app->get('/users', ['controller' => 'UsersController']);
+
+$app->get('/repo', function() use($response)
 {
-	$controller->load('UsersController');
+	$response->redirect('https://github.com/Alewex/Luna');
 });
 
 $app->dispatch();
