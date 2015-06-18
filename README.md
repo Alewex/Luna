@@ -34,6 +34,15 @@ $app->post(['/', '/home'], function(
 });
 ```
 
+#### Controller or View as a route response
+```php
+// Controller
+$app->get('/about', ['controller' => 'AboutController']);
+
+// View
+$app->get('/about', ['view' => ['view' => 'About', 'title' => 'About', 'data' => ['email' => 'me@example.com']]]);
+```
+
 #### Custom error pages
 By default, the 404 error page is located under resources/views/errors, but if you have your own error pages you can drop them in any directory in the root. You only have to add the following line in your index file.
 ```php
