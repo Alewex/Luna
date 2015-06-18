@@ -1,6 +1,6 @@
 <?php
 
-namespace Luna\Services\Core;
+namespace Luna\Services\Routing;
 
 class Route
 {
