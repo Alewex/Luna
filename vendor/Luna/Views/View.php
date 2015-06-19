@@ -2,7 +2,7 @@
 
 namespace Luna\Views;
 
-use Luna\Core\ResourceHandler;
+use Luna\Core\ServiceContainer as Service;
 
 class View
 {
@@ -16,7 +16,7 @@ class View
 		$this->view = $view;
 		$this->data = $data;
 		$this->title = $title;
-		$this->resource = new ResourceHandler;
+		$this->resource = Service::load('Resource');
 
 		$this->renderView();
 	}
