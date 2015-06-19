@@ -1,5 +1,14 @@
 <?php
 
+/*
+|-----------------------------------------------------------------------
+|	Routes
+|-----------------------------------------------------------------------
+|
+|	Declare here the routes so Luna can return it's responses when
+|	they're requested.
+|
+*/
 $app->get(['/', '/home'], function() use($app, $view)
 {
 	$view->render('Welcome', 'Luna', ['framework' => 'Luna', 'version' => 1.8, 'routes' => $app->router->collection->routes]);
