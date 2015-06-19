@@ -3,6 +3,7 @@
 namespace Luna\HTTP\Controllers;
 
 use Luna\Core\ResourceHandler;
+use Luna\Core\ServiceContainer as Service;
 
 class Controller
 {
@@ -14,7 +15,7 @@ class Controller
 	{
 		$this->class = $class;
 		$this->method = $method;
-		$this->resource = new ResourceHandler;
+		$this->resource = Service::load('Resource');
 
 		$this->loadController();
 	}
