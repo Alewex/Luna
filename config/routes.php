@@ -16,6 +16,10 @@ $app->get(['/', '/home'], function() use($app, $view)
 
 $app->get('/users', ['controller' => 'UsersController']);
 
+$app->get('/users/create', ['controller' => 'UsersController/Create']);
+
+$app->post('/users/create', ['controller' => 'UsersController/CreateUser']);
+
 $app->get('/repo', function() use($response)
 {
 	$response->redirect('https://github.com/Alewex/Luna');
