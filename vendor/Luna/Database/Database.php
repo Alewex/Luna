@@ -3,15 +3,13 @@
 namespace Luna\Database;
 
 use FluentPDO\FluentPDO;
-use Luna\Core\ServiceContainer as Services;
+use Luna\Core\ServiceContainer as Service;
 
 class Database {
 
 	public function __construct()
 	{
-		$this->services = new Services;
-
-		return $this->fluent = $this->services->load('Fluent');
+		return $this->fluent = Service::load('Fluent');
 	}
 
 }
