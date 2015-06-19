@@ -3,6 +3,7 @@
 namespace Luna\Routing;
 
 use Luna\Routing\Route as Route;
+use Luna\Core\ServiceContainer as Service;
 use Luna\Routing\RouteCollection as Collection;
 
 class RouteHandler
@@ -45,16 +46,16 @@ class RouteHandler
 		switch ($type)
 		{
 			case 'controller':
-				return function() use ($action) { ServiceContainer::$services['Controller']->load($action); };
+				return function() use ($action) { Service::$services['Controller']->load($action); };
 			break;
 
 			case 'view':
 				if (is_array($action))
 				{
-					return function() use ($action) { ServiceContainer::$services['View']->render($action['view'], (isset($action['title']) ? $action['title'] : null), (isset($action['data']) ? $action['data'] : null)); };
+					return function() use ($action) { Service::$services['View']->render($action['view'], (isset($action['title']) ? $action['title'] : null), (isset($action['data']) ? $action['data'] : null)); };
 				} else
 				{
-					return function() use ($action) { ServiceContainer::$services['View']->render($action); };
+					return function() use ($action) { Service::$services['View']->render($action); };
 				}
 			break;
 		}
