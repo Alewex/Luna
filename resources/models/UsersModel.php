@@ -9,4 +9,10 @@ class UsersModel extends Database {
 		return $this->fluent->from('users');
 	}
 
+	public function createUser($name, $age, $location)
+	{
+		$values = ['name' => $name, 'age' => $age, 'location' => $location];
+		return $this->fluent->insertInto('users')->values($values)->execute();
+	}
+
 }
