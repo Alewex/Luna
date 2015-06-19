@@ -1,0 +1,31 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title><?php echo $this->title ?></title>
+	<?php echo $this->resource->style('app') ?>
+</head>
+<body>
+	<?php $users = $this->data['users'] ?>
+	<div class="main-fm">
+		<div class="welcome-box">
+			<table>
+				<tr>
+					<th>Name</th>
+					<th>Age</th>
+					<th>Location</th>
+				</tr>
+				<form action="<?php echo $_SERVER['ROOT'] ?>/users/create" method="POST">
+					<tr>
+						<td><input type="text" name="name"></td>
+						<td><input type="number" name="age"></td>
+						<td><input type="text" name="location"></td>
+					</tr>
+					<tr>
+						<td><input type="submit" value="Create"></td>
+					</tr>
+				</form>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
