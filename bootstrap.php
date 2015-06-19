@@ -1,22 +1,33 @@
 <?php
 
-require 'config/autoloader.php';
-$db = require 'config/.database.php';
+/*
+|-----------------------------------------------------------------------
+|	autoloader.php
+|-----------------------------------------------------------------------
+|
+|	This autoloader takes care of loading all the required classes
+|	inside the vendor folder.
+|
+*/
+require_once 'config/autoloader.php';
 
-$service = new Luna\Core\ServiceContainer();
+/*
+|-----------------------------------------------------------------------
+|	services.php
+|-----------------------------------------------------------------------
+|
+|	This file contains all the necesary services to run Luna, you can
+|	register yours and then load them anywhere in the app.
+|
+*/
+require_once 'config/services.php';
 
-$service->register('Core', new Luna\Core\Luna());
-$service->register('Response', new Luna\HTTP\Response());
-$service->register('View', new Luna\HTTP\Views\ViewHandler());
-$service->register('Model', new Luna\Database\ModelHandler());
-$service->register('Resource', new Luna\Core\ResourceHandler());
-$service->register('Controller', new Luna\HTTP\Controllers\ControllerHandler());
-$service->register('Fluent', new FluentPDO\FluentPDO(new PDO("mysql:host=$db[host];dbname=$db[db]", "$db[user]", "$db[password]")));
-
-$app = $service->load('Core');
-$view = $service->load('View');
-$model = $service->load('Model');
-$fluent = $service->load('Fluent');
-$response = $service->load('Response');
-$resource = $service->load('Resource');
-$controller = $service->load('Controller');
+/*
+|-----------------------------------------------------------------------
+|	routes.php
+|-----------------------------------------------------------------------
+|
+|	The routes.php file contains your application routes.
+|
+*/
+require_once 'config/routes.php';
