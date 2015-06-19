@@ -16,7 +16,7 @@
             <hr>
             <div class="routes">
                 <?php foreach ($routes as $route): ?>
-                    <a href="<?php echo rtrim($_SERVER['SCRIPT_NAME'], 'index.php/') . $route->route ?>"><div class="route"><span class="route-method"><?php echo $route->method ?></span><?php echo $route->route ?></div></a>
+                    <a href="<?php echo $_SERVER['ROOT'] . $route->route ?>"><div class="route"><span class="route-method"><?php echo $route->method ?></span><?php echo $route->route ?></div></a>
                 <?php endforeach; ?>
             </div>
             <hr>
