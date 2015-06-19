@@ -33,7 +33,7 @@ class ResourceHandler
 		$path = $this->getResourcePath('assets/css/' . $resource . '.css');
 
 		if ($path)
-			return "<link rel='stylesheet' href='" . $path . "'>";
+			return "<link rel='stylesheet' href='" . $_SERVER['ROOT'] . "/" . $path . "'>";
 	}
 
 	public function script($resource)
@@ -41,7 +41,7 @@ class ResourceHandler
 		$path = $this->getResourcePath('assets/js/' . $resource . '.js');
 
 		if ($path)
-			return "<script src='" . $path . "'>";
+			return "<script src='" . $_SERVER['ROOT'] . "/" . $path . "'>";
 	}
 
 }
