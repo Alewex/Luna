@@ -3,6 +3,7 @@
 namespace Luna\Database;
 
 use Luna\Core\ResourceHandler;
+use Luna\Core\ServiceContainer as Service;
 
 class Model
 {
@@ -13,7 +14,7 @@ class Model
 	public function __construct($model)
 	{
 		$this->modelClass = $model;
-		$this->resource = new ResourceHandler;
+		$this->resource = Service::load('Resource');
 
 		return $this->loadModel();
 	}
