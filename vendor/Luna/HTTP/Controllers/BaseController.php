@@ -2,16 +2,15 @@
 
 namespace Luna\HTTP\Controllers;
 
-use Luna\Database\ModelHandler as Model;
-use Luna\HTTP\Views\ViewHandler as View;
+use Luna\Core\ServiceContainer as Service;
 
 class BaseController
 {
 
 	public function __construct()
 	{
-		$this->view = new View();
-		$this->model = new Model();
+		$this->view = Service::load('View');
+		$this->model = Service::load('Model');
 	}
 
 }
