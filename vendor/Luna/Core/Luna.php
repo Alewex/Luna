@@ -75,7 +75,7 @@ class Luna
 	public function dispatch()
 	{
 		$this->request->create($_SERVER);
-		
+
 		$match = $this->routeMatchedByRequest();
 
 		if (!empty($match))
