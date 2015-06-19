@@ -64,11 +64,11 @@ class MyController extends BaseController
 ```
 
 #### Adding a service
-On the bootstrap file you can register services using the ServiceContainer, these services must be under the vendor directory.
+On the config/services file you can register services using the ServiceContainer class, these services must be under the vendor directory.
 ```php
 // Register the service.
-$service->register('MyService', new Test\Service);
+Service::register('MyService', new Test\Service);
 
 // Load the service.
-$myService = $service->load('MyService');
+$myService = Service::load('MyService');
 ```
