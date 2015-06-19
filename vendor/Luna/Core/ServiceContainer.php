@@ -6,20 +6,20 @@ class ServiceContainer {
 
 	public static $services;
 
-	public function register($serviceName, $service)
+	public static function register($serviceName, $service)
 	{
 		self::$services[$serviceName] = $service;
 	}
 
-	public function load($service)
+	public static function load($service)
 	{
-		if ($this->serviceExists($service))
+		if (self::serviceExists($service))
 		{
 			return self::$services[$service];
 		}
 	}
 
-	public function serviceExists($service)
+	public static function serviceExists($service)
 	{
 		return (array_key_exists($service, self::$services) ? true : false);
 	}
