@@ -1,6 +1,6 @@
 <?php
 
-namespace Luna\HTTP\Views;
+namespace Luna\Views;
 
 use Luna\Core\ResourceHandler;
 
@@ -23,12 +23,11 @@ class View
 
 	public function renderView()
 	{
-		$path = $this->resource->getResourcePath('views/' . $this->view . '*');
+		$path = $this->resource->getResourcePath('views/' . $this->view . '.*');
 
 		if ($this->viewExists($path))
 		{
 			require_once $path;
-
 			return $this;
 		}
 	}

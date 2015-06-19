@@ -1,8 +1,8 @@
 <?php
 
-namespace Luna\HTTP\Views;
+namespace Luna\Views;
 
-use Luna\HTTP\Views\View;
+use Luna\Views\View;
 
 class ViewHandler
 {
