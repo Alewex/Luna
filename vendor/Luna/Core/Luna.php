@@ -7,7 +7,6 @@ use Luna\HTTP\Request as Request;
 use Luna\HTTP\Response as Response;
 use Luna\Routing\RouteHandler as Router;
 use Luna\Core\ResourceHandler as Resource;
-use Luna\Core\ServiceContainer;
 
 class Luna
 {
@@ -22,54 +21,22 @@ class Luna
 
 	public function get($route, $response)
 	{
-		return $this->processRoute('GET', $route, $response);
+		return $this->router->processRoute('GET', $route, $response);
 	}
 
 	public function post($route, $response)
 	{
-		return $this->processRoute('POST', $route, $response);
+		return $this->router->processRoute('POST', $route, $response);
 	}
 
-	public function processRoute($method, $route, $response)
+	public function put($route, $response)
 	{
-		if (!is_callable($response) && is_array($response))
-		{
-			$response = $this->processResponse($response);
-		}
-
-		if (is_array($route))
-		{
-			foreach ($route as $route)
-			{
-				$this->router->addToCollection(new Route($method, $route, $response));
-			}
-		} else
-		{
-			$this->router->addToCollection(new Route($method, $route, $response));
-		}
+		return $this->router->processRoute('PUT', $route, $response);
 	}
 
-	public function processResponse(array $response)
+	public function delete($route, $response)
 	{
-		$type = array_keys($response)[0];
-		$action = array_values($response)[0];
-
-		switch ($type)
-		{
-			case 'controller':
-				return function() use ($action) { ServiceContainer::$services['Controller']->load($action); };
-			break;
-
-			case 'view':
-				if (is_array($action))
-				{
-					return function() use ($action) { ServiceContainer::$services['View']->render($action['view'], (isset($action['title']) ? $action['title'] : null), (isset($action['data']) ? $action['data'] : null)); };
-				} else
-				{
-					return function() use ($action) { ServiceContainer::$services['View']->render($action); };
-				}
-			break;
-		}
+		return $this->router->processRoute('DELETE', $route, $response);
 	}
 
 	public function dispatch()
