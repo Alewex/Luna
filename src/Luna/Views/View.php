@@ -16,6 +16,7 @@ class View
 		$this->view = $view;
 		$this->data = $data;
 		$this->title = $title;
+		
 		$this->resource = Service::load('Resource');
 
 		$this->renderView();
@@ -24,6 +25,14 @@ class View
 	public function renderView()
 	{
 		$path = $this->resource->getResourcePath('views/' . $this->view . '.*');
+
+		if (isset($this->data) && is_array($this->data))
+		{
+			foreach ($this->data as $dataKey => $dataValue)
+			{
+				$this->{$dataKey} = $dataValue;
+			}
+		}
 
 		if ($this->viewExists($path))
 		{
