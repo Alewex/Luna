@@ -1,0 +1,10 @@
+{
+	"autoload": {
+		"psr-4": {
+			"Luna\\": "src/Luna/"
+		}
+	},
+	"require": {
+		"lichtner/fluentpdo": "dev-master"
+	}
+}
