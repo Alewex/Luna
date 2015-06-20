@@ -42,33 +42,3 @@ $app->get('/about', ['controller' => 'AboutController']);
 // View
 $app->get('/about', ['view' => ['view' => 'About', 'title' => 'About', 'data' => ['email' => 'me@example.com']]]);
 ```
-
-#### Custom error pages
-By default, the 404 error page is located under resources/views/errors, but if you have your own error pages you can drop them in any directory in the root. You only have to add the following line in your index file.
-```php
-$resources->path('path/to/resources/');
-```
-
-### Creating a controller
-All controllers must extend the BaseController class found at vendor/Luna/Services/HTTP/Controllers and must have a "main" function.
-```php
-use Luna\Services\HTTP\Controllers\BaseController;
-
-class MyController extends BaseController
-{
-  public function main()
-  {
-    echo "Welcome!";
-  }
-}
-```
-
-#### Adding a service
-On the config/services file you can register services using the ServiceContainer class, these services must be under the vendor directory.
-```php
-// Register the service.
-Service::register('MyService', new Test\Service);
-
-// Load the service.
-$myService = Service::load('MyService');
-```
