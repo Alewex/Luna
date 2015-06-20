@@ -2,14 +2,13 @@
 
 /*
 |-----------------------------------------------------------------------
-|	autoloader.php
+|	Composer autoload
 |-----------------------------------------------------------------------
 |
-|	This autoloader takes care of loading all the required classes
-|	inside the vendor folder.
+|	This is the autoloader file provided by composer.
 |
 */
-require_once 'config/autoloader.php';
+require_once 'vendor/autoload.php';
 
 /*
 |-----------------------------------------------------------------------
