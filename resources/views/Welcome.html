@@ -7,15 +7,13 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
 </head>
 <body>
-    <?php $luna = $this->data ?>
-    <?php $routes = $luna['routes'] ?>
     <div class="main-fm">
         <div class="welcome-box">
             <h1>Hey there!</h1>
-            <h2 class="light">Welcome to <b><?php echo $luna['framework'] ?></b> version <b><?php echo $luna['version'] ?></b></h2>
+            <h2 class="light">Welcome to <b><?php echo $this->framework ?></b> version <b><?php echo $this->version ?></b></h2>
             <hr>
             <div class="routes">
-                <?php foreach ($routes as $route): ?>
+                <?php foreach ($this->routes as $route): ?>
                     <a href="<?php echo $_SERVER['ROOT'] . $route->route ?>"><div class="route"><span class="route-method"><?php echo $route->method ?></span><?php echo $route->route ?></div></a>
                 <?php endforeach; ?>
             </div>
