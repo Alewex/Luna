@@ -11,7 +11,7 @@
 */
 $app->get(['/', '/home'], function() use($app, $view)
 {
-	$view->render('Welcome', 'Luna', ['framework' => 'Luna', 'version' => 1.8, 'routes' => $app->router->collection->routes]);
+	$view->render('Welcome', 'Luna', ['framework' => 'Luna', 'version' => 1, 'routes' => $app->router->collection->routes]);
 });
 
 $app->get('/users', ['controller' => 'UsersController']);
