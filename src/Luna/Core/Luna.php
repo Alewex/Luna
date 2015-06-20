@@ -13,7 +13,6 @@ class Luna
 
 	public function __construct()
 	{
-		$_SERVER['ROOT'] = rtrim($_SERVER['SCRIPT_NAME'], 'index.php/');
 		$this->router = new Router;
 		$this->request = new Request;
 		$this->resource = new Resource;

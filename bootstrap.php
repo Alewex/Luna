@@ -30,3 +30,13 @@ require_once 'config/services.php';
 |
 */
 require_once 'config/routes.php';
+
+/*
+|-----------------------------------------------------------------------
+|	Application root.
+|-----------------------------------------------------------------------
+|
+|	This sets the application root to the current root directory.
+|
+*/
+$_SERVER['ROOT'] = rtrim($_SERVER['SCRIPT_NAME'], 'index.php/');
