@@ -2,7 +2,6 @@
 
 namespace Luna\Core;
 
-use Luna\Routing\Route as Route;
 use Luna\HTTP\Request as Request;
 use Luna\HTTP\Response as Response;
 use Luna\Routing\RouteHandler as Router;
