@@ -46,11 +46,9 @@ class Luna
 
 		if (!empty($match))
 		{
+			$response = (isset($match->placeholders) ? call_user_func_array($match->response, $match->placeholders) : call_user_func($match->response));
 			$this->response->code(200);
-			$this->response->body(function() use($match)
-			{
-				call_user_func_array($match->response, $match->placeholders);
-			});
+			$this->response->body($response);
 			$this->response->send();
 		} else
 		{
