@@ -43,7 +43,6 @@ class Luna
 		$this->request->create($_SERVER);
 
 		$match = $this->routeMatchedByRequest();
-		var_dump($match);
 
 		if (!empty($match))
 		{
