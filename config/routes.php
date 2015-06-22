@@ -24,3 +24,6 @@ $app->get('/repo', function() use($response)
 {
 	$response->redirect('https://github.com/Alewex/Luna');
 });
+
+$app->get('/user/{name}', function($name) { echo "id $name"; });
+$app->get('/users/{name}/{id}', function($name, $id) { echo "Hesy $name $id"; });
