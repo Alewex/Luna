@@ -19,7 +19,7 @@ class RouteHandler
 		return $this->collection->add($route);
 	}
 
-	public function processRoute($method, $route, $response)
+	public function createRoute($method, $route, $response)
 	{
 		if (!is_callable($response) && is_array($response))
 		{
@@ -30,11 +30,30 @@ class RouteHandler
 		{
 			foreach ($route as $route)
 			{
-				$this->addToCollection(new Route($method, $route, $response));
+				$processed = $this->processRoute($route);
+				$placeholders = (isset($processed['placeholders']) ? $processed['placeholders'] : false);
+
+				$this->addToCollection(new Route($method, $processed['route'], $response, $placeholders[1]));
 			}
 		} else
 		{
-			$this->addToCollection(new Route($method, $route, $response));
+			$processed = $this->processRoute($route);
+			$placeholders = (isset($processed['placeholders']) ? $processed['placeholders'] : false);
+	
+			$this->addToCollection(new Route($method, $processed['route'], $response, $placeholders[1]));
+		}
+	}
+
+	public function processRoute($route)
+	{
+		if (preg_match('#{(.*?)}#', $route))
+		{
+			$regex = preg_replace('#{(.*?)}#', '([^/]+)', $route);
+			preg_match_all('/{(.*?)}/', $route, $match);
+			return (isset($match) ? array('route' => $regex, 'placeholders' => $match) : $route);
+		} else
+		{
+			return array('route' => $route);
 		}
 	}
 

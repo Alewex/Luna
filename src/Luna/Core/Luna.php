@@ -20,22 +20,22 @@ class Luna
 
 	public function get($route, $response)
 	{
-		return $this->router->processRoute('GET', $route, $response);
+		return $this->router->createRoute('GET', $route, $response);
 	}
 
 	public function post($route, $response)
 	{
-		return $this->router->processRoute('POST', $route, $response);
+		return $this->router->createRoute('POST', $route, $response);
 	}
 
 	public function put($route, $response)
 	{
-		return $this->router->processRoute('PUT', $route, $response);
+		return $this->router->createRoute('PUT', $route, $response);
 	}
 
 	public function delete($route, $response)
 	{
-		return $this->router->processRoute('DELETE', $route, $response);
+		return $this->router->createRoute('DELETE', $route, $response);
 	}
 
 	public function dispatch()
@@ -43,11 +43,15 @@ class Luna
 		$this->request->create($_SERVER);
 
 		$match = $this->routeMatchedByRequest();
+		var_dump($match);
 
 		if (!empty($match))
 		{
 			$this->response->code(200);
-			$this->response->body($match->response);
+			$this->response->body(function() use($match)
+			{
+				call_user_func_array($match->response, $match->placeholders);
+			});
 			$this->response->send();
 		} else
 		{
@@ -66,7 +70,21 @@ class Luna
 
 		foreach ($this->routes as $route)
 		{
-			if ($this->request->requestQuery == $route->route && $this->request->method == $route->method) return $route;
+			$request = $this->request->requestQuery;
+
+			if (preg_match("#$route->route#", $request, $matches))
+			{
+				$matches = array_splice($matches, 1);
+			}
+
+			if ($matches)
+			{
+				$route->placeholders = array_combine($route->placeholders, $matches);
+				return $route;
+			} else
+			{
+				if ($this->request->requestQuery == $route->route && $this->request->method == $route->method) return $route;
+			}
 		}
 	}
 
