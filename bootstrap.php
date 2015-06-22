@@ -39,4 +39,4 @@ require_once 'config/routes.php';
 |	This sets the application root to the current root directory.
 |
 */
-$_SERVER['ROOT'] = rtrim($_SERVER['SCRIPT_NAME'], 'index.php/');
+$_SERVER['ROOT'] = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
