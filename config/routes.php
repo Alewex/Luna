@@ -27,3 +27,4 @@ $app->get('/repo', function() use($response)
 
 $app->get('/user/{name}', function($name) { echo "id $name"; });
 $app->get('/users/{name}/{id}', function($name, $id) { echo "Hesy $name $id"; });
+$app->get('/{name}/posts', function($name) { echo $name; });
