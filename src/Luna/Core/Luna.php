@@ -68,8 +68,10 @@ class Luna
 		foreach ($this->routes as $route)
 		{
 			$request = $this->request->requestQuery;
+			$routeUri = $route->route['route'];
+			$routeRegex = (array_key_exists('routeRegex', $route->route) ? $route->route['routeRegex'] : null);
 
-			if (preg_match("#$route->route#", $request, $matches))
+			if (preg_match("#$routeRegex#", $request, $matches))
 			{
 				$matches = array_splice($matches, 1);
 			}
@@ -80,7 +82,7 @@ class Luna
 				return $route;
 			} else
 			{
-				if ($this->request->requestQuery == $route->route && $this->request->method == $route->method) return $route;
+				if ($this->request->requestQuery == $routeUri && $this->request->method == $route->method) return $route;
 			}
 		}
 	}

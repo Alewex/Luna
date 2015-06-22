@@ -33,14 +33,14 @@ class RouteHandler
 				$processed = $this->processRoute($route);
 				$placeholders = (isset($processed['placeholders']) ? $processed['placeholders'] : false);
 
-				$this->addToCollection(new Route($method, $processed['route'], $response, $placeholders[1]));
+				$this->addToCollection(new Route($method, $processed[0], $response, $placeholders[1]));
 			}
 		} else
 		{
 			$processed = $this->processRoute($route);
 			$placeholders = (isset($processed['placeholders']) ? $processed['placeholders'] : false);
 	
-			$this->addToCollection(new Route($method, $processed['route'], $response, $placeholders[1]));
+			$this->addToCollection(new Route($method, $processed[0], $response, $placeholders[1]));
 		}
 	}
 
@@ -50,10 +50,10 @@ class RouteHandler
 		{
 			$regex = preg_replace('#{(.*?)}#', '([^/]+)', $route);
 			preg_match_all('/{(.*?)}/', $route, $match);
-			return (isset($match) ? array('route' => $regex, 'placeholders' => $match) : $route);
+			return (isset($match) ? array(array('route' => $route, 'routeRegex' => $regex), 'placeholders' => $match) : $route);
 		} else
 		{
-			return array('route' => $route);
+			return array(array('route' => $route));
 		}
 	}
 
