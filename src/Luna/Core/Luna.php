@@ -1,73 +1,107 @@
 <?php
 
-namespace Luna\Core;
+namespace Pulse;
 
-use Luna\HTTP\Request as Request;
-use Luna\HTTP\Response as Response;
-use Luna\Routing\RouteHandler as Router;
-use Luna\Core\ResourceHandler as Resource;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use League\Route\RouteCollection as Router;
+use Illuminate\Database\Capsule\Manager;
+use Pulse\Exception\AppException;
+use League\Container\Container;
+use Pulse\ServiceProvider;
 
-class Luna
+class Application
 {
 
-	public function __construct()
+	public $container;
+	public $capsule;
+
+	public function __construct(Container $container)
 	{
-		$this->router = new Router;
-		$this->request = new Request;
-		$this->resource = new Resource;
-		$this->response = new Response;
+		$provider = new ServiceProvider;
+		$provider->setContainer($container);
+
+		$this->container = $provider->getContainer();
 	}
 
-	public function get($route, $response)
+	public function eloquent(Manager $capsule)
 	{
-		return $this->router->processRoute('GET', $route, $response);
+		$this->capsule = $capsule;
+
+		$credentials = require_once '../config/database.php';
+
+		$this->capsule->addConnection([
+			'driver' => 'mysql',
+			'host' => $credentials['host'],
+			'database' => $credentials['database'],
+			'username' => $credentials['username'],
+			'password' => $credentials['password'],
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix' => $credentials['prefix']
+		]);
+
+		$this->capsule->setAsGlobal();
+		$this->capsule->bootEloquent();
 	}
 
-	public function post($route, $response)
+	public function session(Session $session)
 	{
-		return $this->router->processRoute('POST', $route, $response);
+		$session->setName('pulse_session');
+		$session->start();
 	}
 
-	public function put($route, $response)
+	public function dispatch(Response $response, Router $router)
 	{
-		return $this->router->processRoute('PUT', $route, $response);
-	}
+		$this->getRoutes($router);
 
-	public function delete($route, $response)
-	{
-		return $this->router->processRoute('DELETE', $route, $response);
-	}
+		$dispatcher = $router->getDispatcher();
+		$request = Request::createFromGlobals();
 
-	public function dispatch()
-	{
-		$this->request->create($_SERVER);
-
-		$match = $this->routeMatchedByRequest();
-
-		if (!empty($match))
+		try
 		{
-			$this->response->code(200);
-			$this->response->body($match->response);
-			$this->response->send();
-		} else
+			$response = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
+			$response->send();
+		} catch(\League\Route\Http\Exception\NotFoundException $e)
 		{
-			$this->response->code(404);
-			$this->response->body(function()
-			{
-				$this->resource->load('views/errors/404.html');
-			});
-			$this->response->send();
+			$response->setContent(
+				$this->container->get('Blade')->render('errors/404')
+			);
+			$response->setStatusCode(Response::HTTP_NOT_FOUND);
+			$response->send();
+		} catch(\League\Route\Http\Exception\MethodNotAllowedException $e)
+		{
+			$response->setContent(json_encode([
+				'status' => 405,
+				'message' => $e->getMessage()
+			], JSON_PRETTY_PRINT));
+			$response->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
+			$response->headers->set('Content-Type', 'application/json');
+			$response->send();
 		}
 	}
 
-	public function routeMatchedByRequest()
+	public function getRoutes($router)
 	{
-		$this->routes = $this->router->collection->routes;
-
-		foreach ($this->routes as $route)
+		$path = '../config/routes.php';
+		if (file_exists($path))
 		{
-			if ($this->request->requestQuery == $route->route && $this->request->method == $route->method) return $route;
+			require_once $path;
+			return true;
 		}
+
+		throw new \Exception('Routes file not found.');
+	}
+
+	public static function stop($reason = 'Application stopped.')
+	{
+		$response = new Response;
+		$response->setStatusCode(Response::HTTP_SERVICE_UNAVAILABLE);
+		$response->send();
+
+		throw new AppException($reason);
 	}
 
 }
